@@ -1,6 +1,7 @@
-import { Card, ListGroup, ButtonGroup, Button, Form, InputGroup } from 'react-bootstrap';
+import { Card, ListGroup, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState } from 'react';
-import { BsFillTrashFill, BsPencilFill, BsPlusCircleFill } from 'react-icons/bs';
+import { BsPlusCircleFill } from 'react-icons/bs';
+import ListItem from './ListItem';
 
 export default function TaskList () {
 
@@ -17,13 +18,7 @@ export default function TaskList () {
             <Card.Body>
                 <ListGroup id="itemList">
                     {tasks.map((item, index) => (
-                        <ListGroup.Item variant="dark" key={index}>
-                            <span>{item}</span>
-                            <ButtonGroup id="buttons">
-                                <Button variant="secondary"><BsPencilFill/></Button>
-                                <Button variant="secondary"><BsFillTrashFill/></Button>
-                            </ButtonGroup>
-                        </ListGroup.Item>
+                        <ListItem key={index} item={item}/>
                     ))}
                 </ListGroup>
                 {!addTask &&
