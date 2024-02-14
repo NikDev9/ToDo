@@ -1,5 +1,6 @@
 import { Card, ListGroup, ButtonGroup, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs';
 
 export default function TaskList () {
 
@@ -14,8 +15,8 @@ export default function TaskList () {
                         <ListGroup.Item as="li" variant="dark" key={index}>
                             <span>{item}</span>
                             <ButtonGroup id="buttons">
-                                <Button variant="secondary">Edit</Button>
-                                <Button variant="secondary">Delete</Button>
+                                <Button variant="secondary"><BsPencilFill/></Button>
+                                <Button variant="secondary"><BsFillTrashFill/></Button>
                             </ButtonGroup>
                         </ListGroup.Item>
                     ))}
