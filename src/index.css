@@ -26,6 +26,10 @@ body {
   font-weight: bold;
 }
 
+#itemList {
+  margin-bottom: 2%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
