@@ -17,7 +17,7 @@ body {
   position: relative;
 }
 
-#heading {
+#white {
   color: white;
 }
 
@@ -32,6 +32,14 @@ body {
 
 #spacing {
   margin-bottom: 2%;
+}
+
+#submitButton {
+  float: right;
+}
+
+#signupButton {
+  float: center;
 }
 
 code {
