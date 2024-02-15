@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import TaskList from './components/TaskList'; 
+import AllUsers from './components/AllUsers';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" exact element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/mylist" element={<TaskList/>}/>
+        <Route path="/users" element={<AllUsers/>}/>
       </Routes>
     </div>
   );
