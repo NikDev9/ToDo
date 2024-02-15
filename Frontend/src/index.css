@@ -7,6 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#header {
+  background: linear-gradient(#383624, #282617);
+  padding: 1%;
+}
+
+#headerTitle {
+  color: white;
+  font-weight: bolder;
+}
+
+#headerRight {
+  float: right;
+}
+
 #main-container {
   max-width: 45rem;
   margin: 3rem auto;
