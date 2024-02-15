@@ -16,7 +16,7 @@ export default function TaskList () {
         <Card>
             <Card.Header id="cardHeader">Your list</Card.Header>
             <Card.Body>
-                <ListGroup id="itemList">
+                <ListGroup id="spacing">
                     {tasks.map((item, index) => (
                         <ListItem key={index} item={item}/>
                     ))}

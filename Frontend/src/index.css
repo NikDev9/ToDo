@@ -17,6 +17,10 @@ body {
   position: relative;
 }
 
+#heading {
+  color: white;
+}
+
 #buttons {
   float: right;
 }
@@ -26,7 +30,7 @@ body {
   font-weight: bold;
 }
 
-#itemList {
+#spacing {
   margin-bottom: 2%;
 }
 
