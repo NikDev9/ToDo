@@ -1,20 +1,60 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Form, Button, Alert } from 'react-bootstrap';
+import { Link, Navigate } from 'react-router-dom';
+import { Url } from '../constants/global';
 
 export default function Login () {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const [alert, setAlert] = useState('');
 
-    function handleSubmit (event) {
-        console.log('Email:', email);
-        console.log('Password:', password);
+    async function handleSubmit (event) {
+        event.preventDefault();
+        try {
+            let data = JSON.stringify({"email": email, "password": password});
+            let options = {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: data,
+            };
+
+            //Call login API
+            fetch(`${Url}/api/login`, options)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if(data.message) {
+                    setAlert(data.message);
+                }
+                else {
+                    localStorage.setItem('user_id', data.user_id);
+                    if(data.admin)
+                        setAdmin(true);
+                    else
+                        setUser(true);
+                }
+            });
+        }catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return (
         <div>
             <h2 id="white">Login</h2>
+            
+            {alert != '' && 
+                <Alert variant="danger">
+                    {alert}
+                </Alert>
+            }
+            
             <Form onSubmit={handleSubmit} id="spacing">
                 <Form.Group id="spacing">
                     <Form.Label id="white">Email address</Form.Label>
@@ -40,6 +80,7 @@ export default function Login () {
             </Form>
 
             <Link id="white" to="/signup">Not a user? Signup</Link>
+            {user && <Navigate to="/mylist" />}
         </div>
     );
 }

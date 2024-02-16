@@ -1,15 +1,16 @@
+require('dotenv').config({ path: '../config.env' });
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
-const dotenv = require("dotenv")
+bodyParser = require('body-parser');
 const userRouter = require('./routes/users.route');
 const taskRouter = require('./routes/tasks.route');
-
-dotenv.config({ path: '../config.env' });
+const loginRouter = require('./routes/login.route');
 
 const app = express()
 app.use(cors())
 app.use(express.json());
+app.use(bodyParser.json());
 
 const db = require("./models");
 db.sequelize.sync()
@@ -26,3 +27,4 @@ app.listen(8082, () => {
 
 app.use('/api/users', userRouter);
 app.use('/api/tasks', taskRouter);
+app.use('/api/login', loginRouter);

@@ -6,14 +6,24 @@ import { Url } from '../constants/global';
 
 export default function TaskList () {
 
-    const [tasks, setTasks] = useState(['Task 1', 'Task 2', 'Task 3', 'Task 4']);
+    const [userId, setUserId] = useState();
+    const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [addTask, setAddTask] = useState(false);
     const [saved, setSaved] = useState(false);
 
+    //get user_id from local storage
+    useEffect(() => {
+        let user_id = localStorage.getItem('user_id');
+        console.log('User id', user_id);
+        if (user_id) {
+         setUserId(user_id);
+        }
+    }, []);
+
     //Fetch all tasks for the logged in user
     useEffect(() => {
-        fetch(`${Url}/api/tasks/`+1)
+        fetch(`${Url}/api/tasks/`+userId)
           .then((res) => {
             return res.json();
           })
@@ -30,7 +40,7 @@ export default function TaskList () {
 
     //Add new task to database
     function handleSaveTask () {
-        let data = JSON.stringify({"task_name": newTask, "user_id": 1});
+        let data = JSON.stringify({"task_name": newTask, "user_id": userId});
         let options = {
             method: "POST",
             headers: {
@@ -55,6 +65,9 @@ export default function TaskList () {
         <Card>
             <Card.Header id="cardHeader">Your list</Card.Header>
             <Card.Body>
+                {tasks.length == 0 &&
+                    <p>Get started by adding your first task.</p>
+                }
                 <ListGroup id="spacing">
                     {tasks.map((item, index) => (
                         <ListItem key={index} item={item} refresh={() => setSaved((save) => !saved)}/>
