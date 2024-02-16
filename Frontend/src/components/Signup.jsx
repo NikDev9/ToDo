@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import bcrypt from 'bcryptjs';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Url } from '../constants/global';
 
 export default function Signup () {
     
+    const nav = useNavigate();
     const [formData, setFormData] = useState({ email: '', name: '', password: '' });
-    const [user, setUser] = useState(false);
 
     function handleChange (event) {
         const { name, value } = event.target;
@@ -16,28 +16,28 @@ export default function Signup () {
 
     async function handleSubmit (event) {
         try {
-        event.preventDefault();
-        
-        const hashedPassword = await bcrypt.hash(formData.password, 10);
-        let user = {"email": formData.email, "name": formData.name, "password": hashedPassword, "admin": 0};
-        let data = JSON.stringify(user);
-        let options = {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: data,
-        };
+            event.preventDefault();
+            
+            const hashedPassword = await bcrypt.hash(formData.password, 10);
+            let user = {"email": formData.email, "name": formData.name, "password": hashedPassword, "admin": 0};
+            let data = JSON.stringify(user);
+            let options = {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: data,
+            };
 
-        //Call POST API to create user
-        fetch(`${Url}/api/users/`, options)
-          .then((res) => {
-            return res.json();
-          })
-          .then((data) => {
-            localStorage.setItem('user_id', data.user_id);
-            setUser(true);
-        });
+            //Call POST API to create user
+            fetch(`${Url}/api/users/`, options)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                localStorage.setItem('user_id', data.user_id);
+                nav('/mylist', {state: {user_id: data.user_id}});
+            });
         } catch (error) {
             console.error('Error:', error);
         }
@@ -87,7 +87,6 @@ export default function Signup () {
             </Form>
 
             <Link id="white" to="/">Already a user? Login</Link>
-            {user && <Navigate to="/mylist" />}
         </div>
     );
 }

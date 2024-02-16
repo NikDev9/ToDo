@@ -2,6 +2,7 @@ import { Card, Button, Table, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import SingleUser from './SingleUser';
+import bcrypt from 'bcryptjs';
 import { Url } from '../constants/global';
 
 export default function AllUsers () {
@@ -32,10 +33,12 @@ export default function AllUsers () {
     }
 
     //Add new user to the database
-    function handleNewUser (event) {
+    async function handleNewUser (event) {
         event.preventDefault();
         
-        let user = {"email": email, "name": name, "password": password, "admin": admin};
+        //Generate hash before sending to database
+        const hashedPassword = await bcrypt.hash(password, 10);
+        let user = {"email": email, "name": name, "password": hashedPassword, "admin": admin};
         let data = JSON.stringify(user);
         let options = {
             method: "POST",
