@@ -1,7 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
     const Users = sequelize.define("users", {
         user_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            primaryKey: true,
         },
         email: {
             type: Sequelize.STRING
@@ -13,8 +14,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         admin: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.INTEGER
         }
+    }, {
+        timestamps: false
     });
   
     return Users;

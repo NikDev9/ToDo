@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const dotenv = require("dotenv")
+const userRouter = require('./routes/users.route');
+const taskRouter = require('./routes/tasks.route');
 
 dotenv.config({ path: '../config.env' });
 
@@ -27,3 +29,6 @@ db.sequelize.sync()
 app.listen(8082, () => {
     console.log("listening");
 })
+
+app.use('/api/users', userRouter);
+app.use('/api/tasks', taskRouter);

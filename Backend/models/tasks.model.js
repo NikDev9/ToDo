@@ -9,6 +9,8 @@ module.exports = (sequelize, Sequelize) => {
         user_id: {
             type: Sequelize.INTEGER
         }
+    }, {
+        timestamps: false
     });
   
     return Tasks;
