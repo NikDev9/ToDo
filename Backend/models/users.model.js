@@ -1,11 +1,18 @@
+//User model
 module.exports = (sequelize, Sequelize) => {
     const Users = sequelize.define("users", {
         user_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: {
+                args: true,
+                msg: 'Email address already in use!'
+            }
         },
         name: {
             type: Sequelize.STRING
@@ -14,7 +21,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         admin: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            defaultValue: 0
         }
     }, {
         timestamps: false

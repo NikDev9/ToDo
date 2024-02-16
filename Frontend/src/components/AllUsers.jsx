@@ -1,23 +1,61 @@
 import { Card, Button, Table, Form, InputGroup } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import SingleUser from './SingleUser';
+import { Url } from '../constants/global';
 
 export default function AllUsers () {
 
-    const [users, setUsers] = useState([{'id': 1, 'email': 'a@f.com', 'name': 'aste'},{'id': 2, 'email': 'asa@f.com', 'name': 'asdste'}]);
+    const [users, setUsers] = useState([]);
+    const [newUser, setNewUser] = useState({});
     const [addUser, setAddUser] = useState(false);
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [admin, setAdmin] = useState('');
     const [password, setPassword] = useState('');
 
+    //Fetch all users
+    useEffect(() => {
+        fetch(`${Url}/api/users`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log('Data', data);
+            setUsers(data);
+          });
+    },  [newUser]);
+
+    //Toggle if admin wants to add user
     function handleAddUser () {
         setAddUser((add) => !addUser);
     }
 
-    function handleSubmit (event) {
-        console.log('Email:', email);
-        console.log('Password:', password);
+    //Add new user to the database
+    function handleNewUser (event) {
+        event.preventDefault();
+        
+        let user = {"email": email, "name": name, "password": password, "admin": admin};
+        let data = JSON.stringify(user);
+        let options = {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: data,
+        };
+
+        //Call POST API to create user
+        fetch(`${Url}/api/users/`, options)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log('Data', data);
+            handleAddUser();
+            setNewUser(user);
+        });
+
     }
     
     return (
@@ -29,20 +67,21 @@ export default function AllUsers () {
                         <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Admin</th>
                         <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((item) => (
-                            <SingleUser key={item.id} item={item}/>
+                            <SingleUser key={item.user_id} item={item} refresh={() => setNewUser({})}/>
                         ))}
                     </tbody>
                 </Table>
-
+                
                 {addUser &&
                     <div>
                         <h4>Enter details for new user</h4>
-                        <Form onSubmit={handleSubmit} id="spacing">
+                        <Form id="spacing" onSubmit={handleNewUser}>
                             <Form.Control
                                 id="spacing"
                                 type="email"
@@ -55,8 +94,8 @@ export default function AllUsers () {
                                 id="spacing"
                                 type="text"
                                 placeholder="Name"
-                                value={username}
-                                onChange={(event) => setUsername(event.target.value)}
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
                             />
                             
                             <Form.Control
@@ -66,14 +105,20 @@ export default function AllUsers () {
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
                             />
+
+                            <Form.Control
+                                id="spacing"
+                                type="text"
+                                placeholder="Admin (1 or 0)"
+                                value={admin}
+                                onChange={(event) => setAdmin(event.target.value)}
+                            />
+                            <InputGroup id="buttons">
+                                <Button variant="outline-secondary" type="submit">Save</Button>
+                                <Button variant="outline-secondary" onClick={handleAddUser}>Cancel</Button>
+                            </InputGroup>
                         </Form>
                     </div>
-                }
-                {addUser &&
-                    <InputGroup id="buttons">
-                        <Button variant="outline-secondary">Save</Button>
-                        <Button variant="outline-secondary" onClick={handleAddUser}>Cancel</Button>
-                    </InputGroup>
                 }
                 {!addUser && 
                     <Button onClick={handleAddUser} variant="secondary"><BsPlusCircleFill/> Add user</Button>
