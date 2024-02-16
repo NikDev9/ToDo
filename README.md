@@ -19,6 +19,7 @@ To use this code, follow the steps given below:
 - Run 'npm install' or 'yarn install if you have yarn install on your device. This command will install all the packages needed in the project listed on 'package.json'.
 - To use any additional package, install them via npm or yarn.
 - You might want to install a local web server for building your own server.
+- Also, put all the environment variables in .env file in the root directory including database credentials, Secret Keys, etc. 
 - You are good to go with all these installations in place.
 
 ## Requirements  
