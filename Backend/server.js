@@ -8,12 +8,21 @@ dotenv.config({ path: '../config.env' });
 const app = express()
 app.use(cors())
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOSTNAME,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-})
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOSTNAME,
+//     user: process.env.DB_USERNAME,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME
+// })
+
+const db = require("./models");
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
 app.listen(8082, () => {
     console.log("listening");
