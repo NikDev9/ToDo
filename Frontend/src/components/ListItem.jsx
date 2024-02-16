@@ -7,6 +7,7 @@ export default function ListItem ({item, refresh}) {
 
     const [editTask, setEditTask] = useState(false);
     const [newTaskName, setNewTaskName] = useState('');
+    const [userId, setUserId] = useState(localStorage.getItem('user_id'));
 
     //Show/hide div to edit task
     function handleEditTask () {
@@ -28,7 +29,7 @@ export default function ListItem ({item, refresh}) {
 
     //Update task in database
     function saveNewTask () {
-        let data = JSON.stringify({"task_name": newTaskName});
+        let data = JSON.stringify({"task_name": newTaskName, "user_id": userId});
         let options = {
             method: "PUT",
             headers: {

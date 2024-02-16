@@ -3,26 +3,20 @@ import { useState, useEffect } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import ListItem from './ListItem';
 import { Url } from '../constants/global';
+import { useLocation } from 'react-router-dom';
 
 export default function TaskList () {
 
-    const [userId, setUserId] = useState();
+    const loc = useLocation();
+    const userId = loc.state.user_id;
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [addTask, setAddTask] = useState(false);
     const [saved, setSaved] = useState(false);
 
-    //get user_id from local storage
-    useEffect(() => {
-        let user_id = localStorage.getItem('user_id');
-        console.log('User id', user_id);
-        if (user_id) {
-         setUserId(user_id);
-        }
-    }, []);
-
     //Fetch all tasks for the logged in user
     useEffect(() => {
+        console.log('User id task', userId);
         fetch(`${Url}/api/tasks/`+userId)
           .then((res) => {
             return res.json();
@@ -31,7 +25,7 @@ export default function TaskList () {
             console.log('Data', data);
             setTasks(data);
           });
-    },  [newTask, saved]);
+    },  [newTask, saved, userId]);
 
     //Show/hide div for adding new task
     function handleAddTask () {

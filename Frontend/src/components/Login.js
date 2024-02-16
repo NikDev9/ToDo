@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Url } from '../constants/global';
 
 export default function Login () {
     
+    const nav = useNavigate();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [user, setUser] = useState(false);
-    const [admin, setAdmin] = useState(false);
     const [alert, setAlert] = useState('');
 
     async function handleSubmit (event) {
@@ -35,9 +35,9 @@ export default function Login () {
                 else {
                     localStorage.setItem('user_id', data.user_id);
                     if(data.admin)
-                        setAdmin(true);
+                        nav('/users', {state: {user_id: data.user_id}});
                     else
-                        setUser(true);
+                        nav('/mylist', {state: {user_id: data.user_id}});
                 }
             });
         }catch (error) {
@@ -80,7 +80,6 @@ export default function Login () {
             </Form>
 
             <Link id="white" to="/signup">Not a user? Signup</Link>
-            {user && <Navigate to="/mylist" />}
         </div>
     );
 }
