@@ -6,12 +6,11 @@ function Header () {
 
     const nav = useNavigate();
     const location = useLocation();
+    const [signoutBtn, setSignoutBtn] = useState(false);
     
-    const [button, setButton] = useState(true);
-
     useEffect(() => {
-        if(location.pathname == '/' || location.pathname == '/signup')
-            setButton((set) => false);
+        if(location.pathname == '/mylist' || location.pathname == '/users')
+            setSignoutBtn((set) => true);
     }, [location]);
 
     function handleSignout () {
@@ -22,7 +21,7 @@ function Header () {
     return (
         <Navbar id="header" bg="light" expand="lg">
             <Navbar.Brand id="headerTitle" href="#home">To Do</Navbar.Brand>
-            {button &&
+            {signoutBtn &&
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navbar-nav me-auto">
                     <Button variant="light" onClick={handleSignout}>Sign Out</Button>
