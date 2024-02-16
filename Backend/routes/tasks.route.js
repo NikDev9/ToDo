@@ -1,9 +1,12 @@
 const router = require('express').Router();
 
 const {
-  findAll,
+  create, findAll, update, deleteById,
 } = require('../controllers/tasks.controller');
 
-router.get('/', findAll);
+router.post('/', create);
+router.get('/:id', findAll);
+router.put('/:id', update);
+router.delete('/:id', deleteById);
 
 module.exports = router;

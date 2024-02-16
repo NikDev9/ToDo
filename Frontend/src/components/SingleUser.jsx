@@ -6,16 +6,6 @@ export default function SingleUser ({item, refresh}) {
 
     //Delete user from database
     function deleteUser () {
-
-        let data = JSON.stringify({"id": item.user_id});
-        let options = {
-            method: "DELETE",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: data,
-        };
-
         //Call API to delete the user
         fetch(`${Url}/api/users/`+item.user_id, {method: "DELETE"})
           .then((res) => {
