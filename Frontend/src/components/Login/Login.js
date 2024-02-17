@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { Url } from '../constants/global';
+import { Url } from '../../constants/global';
 
 export default function Login () {
     
@@ -56,26 +56,28 @@ export default function Login () {
             }
             
             <Form onSubmit={handleSubmit} id="spacing">
-                <Form.Group id="spacing">
-                    <Form.Label id="white">Email address</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                    />
-                </Form.Group>
 
                 <Form.Group id="spacing">
-                    <Form.Label id="white">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                    />
-                </Form.Group>
+    <Form.Label id="white" htmlFor="email">Email address</Form.Label>
+    <Form.Control
+        id="email"
+        type="email"
+        placeholder="Enter email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+    />
+</Form.Group>
 
+<Form.Group id="spacing">
+    <Form.Label id="white" htmlFor="password">Password</Form.Label>
+    <Form.Control
+        id="password"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+    />
+</Form.Group>
                 <Button variant="outline-light" type="submit" id="submitButton">Submit</Button>
             </Form>
 

@@ -1,9 +1,9 @@
 import { Card, Button, Table, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
-import SingleUser from './SingleUser';
+import SingleUser from '../SingleUser';
 import bcrypt from 'bcryptjs';
-import { Url } from '../constants/global';
+import { Url } from '../../constants/global';
 
 export default function AllUsers () {
 

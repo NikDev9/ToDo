@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import bcrypt from 'bcryptjs';
 import { Link, useNavigate } from 'react-router-dom';
-import { Url } from '../constants/global';
+import { Url } from '../../constants/global';
 
 export default function Signup () {
     

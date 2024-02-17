@@ -1,9 +1,9 @@
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import TaskList from './components/TaskList'; 
-import AllUsers from './components/AllUsers';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import TaskList from './components/TaskList/TaskList'; 
+import AllUsers from './components/AllUsers/AllUsers';
 import Header from './components/Header';
 
 function App() {

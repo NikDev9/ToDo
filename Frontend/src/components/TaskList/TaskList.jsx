@@ -1,14 +1,14 @@
 import { Card, ListGroup, Button, Form, InputGroup } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
-import ListItem from './ListItem';
-import { Url } from '../constants/global';
+import ListItem from '../ListItem';
+import { Url } from '../../constants/global';
 import { useLocation } from 'react-router-dom';
 
 export default function TaskList () {
 
     const loc = useLocation();
-    const userId = loc.state.user_id;
+    const userId = loc?.state?.user_id;
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [addTask, setAddTask] = useState(false);
