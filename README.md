@@ -11,6 +11,7 @@ The frontend of the application has been developed using Bootstrap framework and
 - [Architecture](#architecture)    
 - [Basic usage](#basic-usage)  
 - [Features](#features)
+- [Tests](#tests)
 
 ## Installation  
 
@@ -41,3 +42,13 @@ The project has been developed using MVC (Model-View-Controller) architecture.
 - Login to maintain the list.
 - Add, delete, update tasks on the list.
 - Add or delete users via the admin panel.
+
+## Tests
+
+There are 4 test files inside the components directory that contain unit test on the following components: AllUsers, TaskList, Signup and Login.
+
+To run all the tests, run the following command from the frontend directory:
+
+```
+npm run test
+```
